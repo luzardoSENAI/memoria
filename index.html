@@ -2,27 +2,26 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Color Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Memory Color Pro - Responsivo</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div id="start-screen" class="container">
         <h1>Memory Color <span class="pro-tag">PRO</span></h1>
-        <p>Escolha um desafio para começar:</p>
+        <p>Escolha um nível para começar:</p>
         <div class="menu-buttons">
-            <button onclick="startGame(4, 'TUTORIAL')">TUTORIAL (4 cartas)</button>
-            <button onclick="startGame(8, 'FÁCIL')">FÁCIL (8 cartas)</button>
-            <button onclick="startGame(16, 'MÉDIO')">MÉDIO (16 cartas)</button>
-            <button onclick="startGame(24, 'DIFÍCIL')">DIFÍCIL (24 cartas)</button>
-            <button onclick="startGame(36, 'INSANO')" class="btn-insane">INSANO (36 cartas)</button>
+            <button onclick="startGame(8, 'FÁCIL')">FÁCIL (8)</button>
+            <button onclick="startGame(16, 'MÉDIO')">MÉDIO (16)</button>
+            <button onclick="startGame(24, 'DIFÍCIL')">DIFÍCIL (24)</button>
+            <button onclick="startGame(36, 'INSANO')" class="btn-insane">INSANO (36)</button>
         </div>
     </div>
 
     <div id="game-screen" class="container hidden">
         <div class="game-header">
-            <button onclick="backToMenu()" class="btn-mini">⬅ Menu</button>
+            <button onclick="location.reload()" class="btn-mini">⬅ Menu</button>
             <h2 id="current-level-title">MÉDIO</h2>
         </div>
 

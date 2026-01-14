@@ -1,4 +1,9 @@
-const allColors = ['#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A1', '#33FFF6', '#FFB533', '#FFFFFF', '#F0E68C', '#FF4500', '#ADFF2F', '#00CED1', '#E74C3C', '#9B59B6', '#16A085', '#2C3E50', '#F39C12', '#7F8C8D'];
+const allColors = [
+    '#FF5733', '#33FF57', '#3357FF', '#F333FF', '#FF33A1', 
+    '#33FFF6', '#FFB533', '#FFFFFF', '#F0E68C', '#FF4500', 
+    '#ADFF2F', '#00CED1', '#E74C3C', '#9B59B6', '#16A085', 
+    '#F39C12', '#7F8C8D', '#D35400'
+];
 
 let gameColors = [], flippedCards = [], matchedCount = 0;
 let moves = 0, seconds = 0, timerInterval = null, gameStarted = false;
@@ -29,25 +34,22 @@ function startGame(num, title) {
     resetGame();
 }
 
-function backToMenu() {
-    clearInterval(timerInterval);
-    document.getElementById('start-screen').classList.remove('hidden');
-    document.getElementById('game-screen').classList.add('hidden');
-}
-
 function createBoard() {
     const grid = document.getElementById('grid');
     grid.innerHTML = '';
     
-    // Ajuste de colunas
-    let cols = 4;
-    if (currentConfig.num <= 4) cols = 2;
-    if (currentConfig.num >= 24) cols = 6;
+    // Define Colunas Fixas para Uniformidade
+    let cols;
+    if (currentConfig.num === 8) cols = 4;      // 4x2
+    else if (currentConfig.num === 16) cols = 4; // 4x4
+    else if (currentConfig.num === 24) cols = 6; // 6x4
+    else if (currentConfig.num === 36) cols = 6; // 6x6
+    
     grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
 
-    const pairs = currentConfig.num / 2;
-    const colors = allColors.slice(0, pairs);
-    gameColors = [...colors, ...colors].sort(() => Math.random() - 0.5);
+    const pairsNeeded = currentConfig.num / 2;
+    const selectedColors = allColors.slice(0, pairsNeeded);
+    gameColors = [...selectedColors, ...selectedColors].sort(() => Math.random() - 0.5);
 
     gameColors.forEach(color => {
         const card = document.createElement('div');
@@ -84,18 +86,21 @@ function checkMatch() {
         playSound('match');
         if (matchedCount === gameColors.length) {
             clearInterval(timerInterval);
-            setTimeout(() => alert("Fase Concluída!"), 500);
+            setTimeout(() => alert(`🏆 Parabéns!\nNível: ${currentConfig.title}\nTempo: ${document.getElementById('timer').innerText}\nMovimentos: ${moves}`), 500);
         }
     } else {
         setTimeout(() => {
-            c1.classList.remove('flipped'); c2.classList.remove('flipped');
-            c1.style.backgroundColor = '#6d6567'; c2.style.backgroundColor = '#6d6567';
+            c1.classList.remove('flipped'); 
+            c2.classList.remove('flipped');
+            c1.style.backgroundColor = 'var(--bg-card)';
+            c2.style.backgroundColor = 'var(--bg-card)';
             flippedCards = [];
         }, 700);
     }
 }
 
 function startTimer() {
+    clearInterval(timerInterval);
     seconds = 0;
     timerInterval = setInterval(() => {
         seconds++;
@@ -108,6 +113,7 @@ function startTimer() {
 function resetGame() {
     clearInterval(timerInterval);
     gameStarted = false; matchedCount = 0; moves = 0;
+    flippedCards = [];
     document.getElementById('timer').innerText = "00:00";
     document.getElementById('moves').innerText = "0";
     createBoard();
