@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Color Pro</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="start-screen" class="container">
+        <h1>Memory Color <span class="pro-tag">PRO</span></h1>
+        <p>Escolha um desafio para começar:</p>
+        <div class="menu-buttons">
+            <button onclick="startGame(4, 'TUTORIAL')">TUTORIAL (4 cartas)</button>
+            <button onclick="startGame(8, 'FÁCIL')">FÁCIL (8 cartas)</button>
+            <button onclick="startGame(16, 'MÉDIO')">MÉDIO (16 cartas)</button>
+            <button onclick="startGame(24, 'DIFÍCIL')">DIFÍCIL (24 cartas)</button>
+            <button onclick="startGame(36, 'INSANO')" class="btn-insane">INSANO (36 cartas)</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="container hidden">
+        <div class="game-header">
+            <button onclick="backToMenu()" class="btn-mini">⬅ Menu</button>
+            <h2 id="current-level-title">MÉDIO</h2>
+        </div>
+
+        <div class="stats-container">
+            <div class="stat-box">⏱️ <span id="timer">00:00</span></div>
+            <div class="stat-box">🔄 <span id="moves">0</span></div>
+        </div>
+
+        <div class="grid" id="grid"></div>
+        
+        <button onclick="resetGame()" class="btn-reset">Reiniciar Fase</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
